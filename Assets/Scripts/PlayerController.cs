@@ -7,7 +7,8 @@ public class PlayerController : MonoBehaviour
     public InputSystem_Actions inputs;
     private CharacterController controller;
 
-
+    public GameObject bombaPrefab;
+    public Transform puntoSpawn;
 
     public float moveSpeed = 5f;
     public float rotationSpeed = 200f;
@@ -46,9 +47,11 @@ public class PlayerController : MonoBehaviour
 
         inputs.Player.Sprint.performed += OnDash;
 
-        
+        inputs.Player.Bomb.performed += OnBomb; 
 
     }
+
+
     void Start()
     {
 
@@ -83,12 +86,8 @@ public class PlayerController : MonoBehaviour
             if(dashTimer <= 0)
                 IsDashing = false;
         }
-
-
-
-
-        controller.Move(moveDir * Time.deltaTime);
     }
+
 
     private void OnJump(InputAction.CallbackContext context)
     {
@@ -120,4 +119,16 @@ public class PlayerController : MonoBehaviour
         dashTimer = dashDuration;
     }
 
+    public void OnBomb(InputAction.CallbackContext context)
+    {
+        if (context.performed)
+        {
+        LanzarBomba();
+        }
+    }
+    void LanzarBomba()
+    {
+        Instantiate(bombaPrefab, puntoSpawn.position, Quaternion.identity);
+    }
 }
+

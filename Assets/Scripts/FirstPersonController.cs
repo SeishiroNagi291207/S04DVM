@@ -8,7 +8,8 @@ public class FirstPersonController : MonoBehaviour
     private CharacterController controller;
     public CinemachineCamera characterCamera;
 
-
+    public GameObject bombaPrefab;
+    public Transform puntoSpawn;
 
     public float moveSpeed = 5f;
     public float rotationSpeed = 200f;
@@ -45,7 +46,7 @@ public class FirstPersonController : MonoBehaviour
 
         inputs.Player.Sprint.performed += OnDash;
 
-
+        inputs.Player.Bomb.performed += OnBomb;
 
     }
     void Start()
@@ -130,5 +131,17 @@ public class FirstPersonController : MonoBehaviour
     {
         IsDashing = true;
         dashTimer = dashDuration;
+    }
+
+    public void OnBomb(InputAction.CallbackContext context)
+    {
+        if (context.performed)
+        {
+            LanzarBomba();
+        }
+    }
+    void LanzarBomba()
+    {
+        Instantiate(bombaPrefab, puntoSpawn.position, Quaternion.identity);
     }
 }
