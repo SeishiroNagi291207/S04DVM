@@ -66,17 +66,16 @@ public class FirstPersonController : MonoBehaviour
         cameraForwardDir.Normalize();
 
 
-        if (moveInput != Vector2.zero)
-        {
-            Quaternion targetQuaternion = Quaternion.LookRotation(cameraForwardDir);
-            //transform.rotation = targetQuaternion;
-            transform.rotation = Quaternion.Slerp(
-                transform.rotation,
-                targetQuaternion,
-                rotationSpeed * Time.deltaTime);
+      
+       Quaternion targetQuaternion = Quaternion.LookRotation(cameraForwardDir);
+       transform.rotation = targetQuaternion;
+       /*transform.rotation = Quaternion.Slerp(
+           transform.rotation,
+           targetQuaternion,
+           rotationSpeed * Time.deltaTime);*/
 
 
-        }
+       
 
         Vector3 moveDir = (cameraForwardDir * moveInput.y + transform.right * moveInput.x) * moveSpeed;
 
